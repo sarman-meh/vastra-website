@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VASTRA — The House of Handloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1b140f;
+    --ink-2:#241a13;
+    --ivory:#f6efe2;
+    --ivory-dim:#e6dbc8;
+    --magenta:#c81e5c;
+    --magenta-deep:#9c1646;
+    --gold:#c9a227;
+    --gold-soft:#e3c878;
+    --maroon:#5c2a1f;
+    --bronze:#8b6f3f;
+    --line: rgba(245,237,226,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--ivory);
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond',serif;}
+
+  /* ---------- Texture ---------- */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(200,30,92,0.06), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(201,162,39,0.05), transparent 45%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ---------- Top bar ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0;
+    z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 5vw;
+    background:linear-gradient(to bottom, rgba(27,20,15,0.92), rgba(27,20,15,0));
+    backdrop-filter:blur(2px);
+    transition:padding .35s ease, background .35s ease;
+  }
+  header.scrolled{
+    padding:12px 5vw;
+    background:rgba(27,20,15,0.86);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    font-size:1.7rem;
+    letter-spacing:0.32em;
+    font-weight:500;
+    color:var(--ivory);
+  }
+  .logo span{color:var(--magenta);}
+  nav{display:flex; gap:38px; align-items:center;}
+  nav a{
+    color:var(--ivory-dim);
+    text-decoration:none;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    position:relative;
+    transition:color .3s;
+  }
+  nav a::after{
+    content:"";
+    position:absolute; left:0; bottom:-6px;
+    width:0%; height:1px;
+    background:var(--gold);
+    transition:width .35s ease;
+  }
+  nav a:hover{color:var(--ivory);}
+  nav a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--gold-soft);
+    padding:10px 22px;
+    border-radius:2px;
+    color:var(--gold-soft) !important;
+    letter-spacing:0.2em;
+    font-size:0.7rem;
+  }
+  .nav-cta:hover{
+    background:var(--gold-soft);
+    color:var(--ink) !important;
+  }
+  .nav-cta::after{display:none;}
+
+  /* ================= HERO — Rotating Drape Carousel ================= */
+  .hero{
+    position:relative;
+    height:100vh;
+    min-height:680px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(27,20,15,0.35) 0%, rgba(27,20,15,0.55) 55%, var(--ink) 100%),
+      repeating-linear-gradient(115deg, rgba(245,237,226,0.025) 0px, rgba(245,237,226,0.025) 2px, transparent 2px, transparent 70px);
+    z-index:1;
+  }
+
+  .drape-stage{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+  }
+
+  /* the rotating ring of saree panels */
+  .ring{
+    position:relative;
+    width:min(86vw, 1100px);
+    height:min(86vw, 1100px);
+    max-height:88vh;
+  }
+  .ring-item{
+    position:absolute;
+    top:50%; left:50%;
+    width:240px;
+    height:340px;
+    margin:-170px 0 0 -120px;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(245,237,226,0.08);
+    background-size:cover;
+    background-position:center;
+    transform-origin:center;
+    animation: ringRotate 48s linear infinite;
+    transition: transform .6s ease, filter .6s ease;
+  }
+  .ring-item img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .ring-item .tag{
+    position:absolute; bottom:0; left:0; right:0;
+    padding:14px 16px 12px;
+    background:linear-gradient(to top, rgba(15,10,7,0.85), transparent);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.05rem;
+    letter-spacing:0.04em;
+    color:var(--ivory);
+  }
+  .ring-item .tag small{
+    display:block;
+    font-family:'Jost',sans-serif;
+    font-size:0.62rem;
+    letter-spacing:0.22em;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+
+  /* place each item around the circle, counter-rotate content so it stays upright */
+  .ring-item:nth-child(1){ animation-delay:0s;  }
+  .ring-item:nth-child(2){ animation-delay:-8s; }
+  .ring-item:nth-child(3){ animation-delay:-16s;}
+  .ring-item:nth-child(4){ animation-delay:-24s;}
+  .ring-item:nth-child(5){ animation-delay:-32s;}
+  .ring-item:nth-child(6){ animation-delay:-40s;}
+
+  @keyframes ringRotate{
+    0%   { transform: rotate(0deg) translateX(360px) rotate(0deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+    16.6%{ transform: rotate(60deg) translateX(360px) rotate(-60deg) scale(1.08); filter:brightness(1) saturate(1); }
+    33.3%{ transform: rotate(120deg) translateX(360px) rotate(-120deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+    50%  { transform: rotate(180deg) translateX(360px) rotate(-180deg) scale(0.7); filter:brightness(0.35) saturate(0.5); }
+    66.6%{ transform: rotate(240deg) translateX(360px) rotate(-240deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+    83.3%{ transform: rotate(300deg) translateX(360px) rotate(-300deg) scale(1.08); filter:brightness(1) saturate(1); }
+    100% { transform: rotate(360deg) translateX(360px) rotate(-360deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+  }
+
+  @media (max-width: 900px){
+    .ring-item{ width:160px; height:230px; margin:-115px 0 0 -80px; }
+    @keyframes ringRotate{
+      0%   { transform: rotate(0deg) translateX(170px) rotate(0deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+      16.6%{ transform: rotate(60deg) translateX(170px) rotate(-60deg) scale(1.08); filter:brightness(1) saturate(1); }
+      33.3%{ transform: rotate(120deg) translateX(170px) rotate(-120deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+      50%  { transform: rotate(180deg) translateX(170px) rotate(-180deg) scale(0.7); filter:brightness(0.35) saturate(0.5); }
+      66.6%{ transform: rotate(240deg) translateX(170px) rotate(-240deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+      83.3%{ transform: rotate(300deg) translateX(170px) rotate(-300deg) scale(1.08); filter:brightness(1) saturate(1); }
+      100% { transform: rotate(360deg) translateX(170px) rotate(-360deg) scale(0.86); filter:brightness(0.55) saturate(0.7); }
+    }
+  }
+
+  /* hero text overlay */
+  .hero-copy{
+    position:absolute;
+    z-index:3;
+    text-align:center;
+    pointer-events:none;
+    mix-blend-mode:normal;
+  }
+  .hero-eyebrow{
+    font-size:0.75rem;
+    letter-spacing:0.45em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:18px;
+    opacity:0;
+    animation:fadeUp 1s ease 0.2s forwards;
+  }
+  .hero-title{
+    font-size:clamp(3.2rem, 9vw, 7.5rem);
+    font-weight:500;
+    line-height:0.95;
+    letter-spacing:0.02em;
+    color:var(--ivory);
+    text-shadow:0 10px 50px rgba(0,0,0,0.6);
+    opacity:0;
+    animation:fadeUp 1.2s ease 0.4s forwards;
+  }
+  .hero-title em{
+    font-style:italic;
+    color:var(--magenta);
+    font-weight:400;
+  }
+  .hero-sub{
+    margin-top:22px;
+    font-size:1rem;
+    letter-spacing:0.08em;
+    color:var(--ivory-dim);
+    opacity:0;
+    animation:fadeUp 1.2s ease 0.7s forwards;
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(24px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    z-index:4;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:var(--ivory-dim);
+    font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase;
+    opacity:0; animation:fadeUp 1s ease 1.1s forwards;
+  }
+  .scroll-cue .line{
+    width:1px; height:38px; background:linear-gradient(to bottom, var(--gold-soft), transparent);
+    animation:cuePulse 2s ease-in-out infinite;
+  }
+  @keyframes cuePulse{
+    0%,100%{ opacity:0.3; }
+    50%{ opacity:1; }
+  }
+
+  /* ================= COLLECTION INTRO ================= */
+  .intro{
+    position:relative; z-index:2;
+    max-width:1240px; margin:0 auto;
+    padding:130px 6vw 60px;
+    text-align:center;
+  }
+  .intro .eyebrow{
+    font-size:0.75rem; letter-spacing:0.4em; text-transform:uppercase;
+    color:var(--gold-soft); margin-bottom:18px;
+  }
+  .intro h2{
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    font-weight:500; line-height:1.2;
+    max-width:820px; margin:0 auto 22px;
+  }
+  .intro p{
+    color:var(--ivory-dim); font-size:1rem; line-height:1.9;
+    max-width:620px; margin:0 auto;
+    letter-spacing:0.02em;
+  }
+  .rule{
+    width:64px; height:1px; background:var(--gold);
+    margin:34px auto 0;
+  }
+
+  /* ================= PRODUCT GRID ================= */
+  .collection{
+    position:relative; z-index:2;
+    max-width:1400px; margin:0 auto;
+    padding:60px 5vw 140px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(290px, 1fr));
+    gap:46px 36px;
+  }
+
+  .card{
+    position:relative;
+    border:1px solid var(--line);
+    background:var(--ink-2);
+    border-radius:4px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .5s cubic-bezier(.22,.9,.3,1), border-color .5s, box-shadow .5s;
+  }
+  .card:hover{
+    transform:translateY(-10px);
+    border-color:rgba(201,162,39,0.4);
+    box-shadow:0 30px 70px -25px rgba(0,0,0,0.7);
+  }
+  .card-media{
+    position:relative;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    background:#0e0a07;
+  }
+  .card-media img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform 1.4s cubic-bezier(.22,.9,.3,1), filter .8s ease;
+    transform:scale(1.02);
+  }
+  .card:hover .card-media img{
+    transform:scale(1.12) rotate(-0.4deg);
+  }
+  .card-media .img-back{
+    position:absolute; inset:0;
+    opacity:0;
+    transition:opacity .8s ease;
+  }
+  .card:hover .img-back{ opacity:1; }
+  .card:hover .img-front{ opacity:0; }
+  .img-front{ transition:opacity .8s ease; }
+
+  .badge{
+    position:absolute; top:16px; left:16px;
+    background:var(--magenta);
+    color:var(--ivory);
+    font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase;
+    padding:7px 14px;
+    border-radius:2px;
+    z-index:2;
+    box-shadow:0 6px 18px -6px rgba(200,30,92,0.6);
+  }
+  .badge.gold{ background:var(--gold); color:var(--ink); }
+
+  .view-hint{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:opacity .4s ease;
+    z-index:2;
+    pointer-events:none;
+  }
+  .card:hover .view-hint{ opacity:1; }
+  .view-hint span{
+    border:1px solid var(--gold-soft);
+    color:var(--ivory);
+    background:rgba(20,14,10,0.45);
+    backdrop-filter:blur(6px);
+    padding:13px 30px;
+    font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase;
+    border-radius:1px;
+    transform:translateY(8px);
+    transition:transform .4s ease;
+  }
+  .card:hover .view-hint span{ transform:translateY(0); }
+
+  .card-info{
+    padding:24px 24px 28px;
+  }
+  .card-info .origin{
+    font-size:0.66rem; letter-spacing:0.28em; text-transform:uppercase;
+    color:var(--gold-soft); margin-bottom:10px;
+  }
+  .card-info h3{
+    font-size:1.6rem; font-weight:500; margin-bottom:12px; letter-spacing:0.01em;
+  }
+  .price-row{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+  }
+  .price-now{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.5rem; font-weight:600; color:var(--ivory);
+  }
+  .price-now::before{ content:"₹"; font-size:0.95rem; margin-right:2px; }
+  .price-old{
+    font-size:0.92rem; color:var(--ivory-dim);
+    text-decoration:line-through; opacity:0.6;
+  }
+  .price-old::before{ content:"₹"; }
+  .save-pct{
+    font-size:0.7rem; letter-spacing:0.12em;
+    color:var(--magenta); text-transform:uppercase;
+    border:1px solid rgba(200,30,92,0.4);
+    padding:3px 9px; border-radius:2px;
+  }
+
+  /* ================= EDITORIAL BAND ================= */
+  .editorial{
+    position:relative; z-index:2;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    align-items:center;
+    max-width:1400px; margin:0 auto;
+    padding:0 5vw 150px;
+    gap:60px;
+  }
+  .editorial-media{
+    position:relative;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    border-radius:4px;
+  }
+  .editorial-media img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter:saturate(0.92);
+  }
+  .editorial-media::after{
+    content:"";
+    position:absolute; inset:0;
+    border:1px solid rgba(245,237,226,0.18);
+    margin:18px;
+    pointer-events:none;
+  }
+  .editorial-text .eyebrow{
+    font-size:0.75rem; letter-spacing:0.4em; text-transform:uppercase;
+    color:var(--gold-soft); margin-bottom:20px;
+  }
+  .editorial-text h2{
+    font-size:clamp(2.4rem, 5vw, 4.2rem);
+    font-weight:500; line-height:1.12; margin-bottom:26px;
+  }
+  .editorial-text h2 em{ color:var(--magenta); font-style:italic; }
+  .editorial-text p{
+    color:var(--ivory-dim); line-height:1.95; font-size:1rem;
+    max-width:480px; margin-bottom:30px;
+  }
+  .ghost-btn{
+    display:inline-flex; align-items:center; gap:14px;
+    border:1px solid var(--gold-soft);
+    color:var(--gold-soft);
+    padding:15px 32px;
+    font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase;
+    text-decoration:none;
+    transition:all .35s ease;
+  }
+  .ghost-btn:hover{ background:var(--gold-soft); color:var(--ink); gap:22px; }
+
+  @media (max-width:900px){
+    .editorial{ grid-template-columns:1fr; }
+  }
+
+  /* ================= FOOTER / CONTACT ================= */
+  footer{
+    position:relative; z-index:2;
+    border-top:1px solid var(--line);
+    padding:90px 5vw 50px;
+    text-align:center;
+  }
+  footer .logo{ font-size:1.6rem; margin-bottom:20px; }
+  footer p.tag{
+    color:var(--ivory-dim); font-size:0.95rem; max-width:480px; margin:0 auto 34px;
+    line-height:1.8;
+  }
+  .contact-row{
+    display:flex; justify-content:center; gap:50px; flex-wrap:wrap;
+    margin-bottom:50px;
+  }
+  .contact-row a, .contact-row span{
+    color:var(--ivory-dim); text-decoration:none; font-size:0.85rem;
+    letter-spacing:0.12em;
+    display:flex; flex-direction:column; gap:6px; align-items:center;
+  }
+  .contact-row .label{
+    font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-soft);
+  }
+  .contact-row a:hover{ color:var(--magenta); }
+  footer .copyright{
+    font-size:0.7rem; letter-spacing:0.2em; color:rgba(245,237,226,0.35);
+    text-transform:uppercase;
+    border-top:1px solid var(--line);
+    padding-top:28px;
+  }
+
+  /* ================= LIGHTBOX / PRODUCT VIEWER ================= */
+  .lightbox{
+    position:fixed; inset:0; z-index:1000;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(12,8,6,0.92);
+    backdrop-filter:blur(10px);
+    opacity:0; visibility:hidden;
+    transition:opacity .5s ease, visibility .5s ease;
+    padding:24px;
+  }
+  .lightbox.open{ opacity:1; visibility:visible; }
+
+  .lb-panel{
+    position:relative;
+    width:min(1180px, 96vw);
+    max-height:92vh;
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:6px;
+    display:grid;
+    grid-template-columns:1.15fr 1fr;
+    overflow:hidden;
+    transform:scale(0.94) translateY(20px);
+    transition:transform .55s cubic-bezier(.22,.9,.3,1);
+    box-shadow:0 60px 140px -40px rgba(0,0,0,0.9);
+  }
+  .lightbox.open .lb-panel{ transform:scale(1) translateY(0); }
+
+  .lb-close{
+    position:absolute; top:18px; right:18px; z-index:10;
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid rgba(245,237,226,0.25);
+    background:rgba(15,10,8,0.5);
+    color:var(--ivory);
+    font-size:1.3rem;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:all .3s ease;
+  }
+  .lb-close:hover{ background:var(--magenta); border-color:var(--magenta); transform:rotate(90deg); }
+
+  .lb-viewer{
+    position:relative;
+    background:#0e0a07;
+    overflow:hidden;
+    min-height:420px;
+  }
+  .lb-stage{
+    position:relative; width:100%; height:100%;
+  }
+  .lb-slide{
+    position:absolute; inset:0;
+    opacity:0;
+    transform:scale(1.06);
+    transition:opacity .7s ease, transform 1.1s cubic-bezier(.22,.9,.3,1);
+    pointer-events:none;
+  }
+  .lb-slide.active{
+    opacity:1; transform:scale(1);
+    pointer-events:auto;
+  }
+  .lb-slide img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .lb-slide .crop{
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  /* crop framing for zoom views */
+  .crop-top{ object-position:center top; transform:scale(1.9) translateY(8%); }
+  .crop-bottom{ object-position:center bottom; transform:scale(1.9) translateY(-8%); }
+  .crop-back-top{ object-position:center top; transform:scale(1.9) translateY(8%) scaleX(-1); filter:hue-rotate(6deg) brightness(0.94); }
+  .crop-back-bottom{ object-position:center bottom; transform:scale(1.9) translateY(-8%) scaleX(-1); filter:hue-rotate(6deg) brightness(0.94); }
+  .crop-back-full{ transform:scaleX(-1); filter:hue-rotate(6deg) brightness(0.94); }
+
+  .lb-slide-label{
+    position:absolute; bottom:22px; left:22px;
+    font-size:0.66rem; letter-spacing:0.32em; text-transform:uppercase;
+    color:var(--gold-soft);
+    background:rgba(15,10,8,0.55);
+    padding:9px 16px;
+    border:1px solid rgba(245,237,226,0.12);
+    backdrop-filter:blur(4px);
+    z-index:3;
+  }
+
+  .lb-thumbs{
+    position:absolute; bottom:22px; right:22px; z-index:5;
+    display:flex; gap:8px;
+  }
+  .lb-thumb{
+    width:46px; height:60px;
+    border:1px solid rgba(245,237,226,0.25);
+    overflow:hidden; cursor:pointer;
+    background:#0e0a07;
+    opacity:0.5;
+    transition:opacity .3s ease, border-color .3s ease, transform .3s ease;
+    position:relative;
+  }
+  .lb-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .lb-thumb.active{ opacity:1; border-color:var(--gold); transform:translateY(-3px); }
+
+  .lb-nav-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:48px; height:48px; border-radius:50%;
+    border:1px solid rgba(245,237,226,0.25);
+    background:rgba(15,10,8,0.45);
+    color:var(--ivory);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1.2rem; z-index:6;
+    transition:all .3s ease;
+  }
+  .lb-nav-arrow:hover{ background:var(--gold); color:var(--ink); border-color:var(--gold); }
+  .lb-nav-arrow.prev{ left:18px; }
+  .lb-nav-arrow.next{ right:18px; }
+
+  .lb-info{
+    padding:50px 46px;
+    display:flex; flex-direction:column;
+    justify-content:center;
+    overflow-y:auto;
+  }
+  .lb-info .origin{
+    font-size:0.7rem; letter-spacing:0.34em; text-transform:uppercase;
+    color:var(--gold-soft); margin-bottom:16px;
+  }
+  .lb-info h2{
+    font-size:2.6rem; font-weight:500; line-height:1.1; margin-bottom:18px;
+  }
+  .lb-info .desc{
+    color:var(--ivory-dim); line-height:1.95; font-size:0.96rem; margin-bottom:28px;
+  }
+  .lb-price-block{
+    display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .lb-price-now{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.6rem; font-weight:600; color:var(--ivory);
+  }
+  .lb-price-now::before{ content:"₹"; font-size:1.6rem; margin-right:4px; }
+  .lb-price-old{
+    font-size:1.15rem; color:var(--ivory-dim); text-decoration:line-through; opacity:0.55;
+  }
+  .lb-price-old::before{ content:"₹"; }
+  .lb-save{
+    display:inline-block; margin-top:6px;
+    font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--magenta); border:1px solid rgba(200,30,92,0.45);
+    padding:6px 14px; border-radius:2px; margin-bottom:28px;
+  }
+  .lb-meta{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px 24px;
+    margin:18px 0 32px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .lb-meta div .k{
+    font-size:0.62rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold-soft);
+    margin-bottom:6px;
+  }
+  .lb-meta div .v{ font-size:0.92rem; color:var(--ivory-dim); }
+  .lb-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-primary{
+    flex:1; min-width:180px;
+    background:var(--magenta);
+    color:var(--ivory);
+    border:none; padding:18px 28px;
+    font-size:0.78rem; letter-spacing:0.28em; text-transform:uppercase;
+    cursor:pointer; transition:all .35s ease;
+  }
+  .btn-primary:hover{ background:var(--magenta-deep); letter-spacing:0.36em; }
+
+  @media (max-width:860px){
+    .lb-panel{ grid-template-columns:1fr; max-height:94vh; overflow-y:auto; }
+    .lb-viewer{ min-height:340px; aspect-ratio:3/4; }
+    .lb-info{ padding:34px 26px 44px; }
+    .lb-info h2{ font-size:2rem; }
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, .card:focus-visible{
+    outline:2px solid var(--gold-soft);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="logo">VASTRA<span>.</span></div>
+  <nav>
+    <a href="#collection">Collection</a>
+    <a href="#story">Heritage</a>
+    <a href="#contact">Contact</a>
+    <a href="mailto:VASTRA@gmail.com" class="nav-cta">Enquire</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="drape-stage">
+    <div class="ring" id="heroRing">
+      <!-- ring items injected by JS for easy reuse -->
+    </div>
+  </div>
+  <div class="hero-copy">
+    <div class="hero-eyebrow">Handloom &middot; Heirloom &middot; Now</div>
+    <h1 class="hero-title">The Art of the<br><em>Drape</em></h1>
+    <p class="hero-sub">Six signature ikat &amp; silk weaves — from Sambalpur looms to your shelf.</p>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ================= INTRO ================= -->
+<section class="intro" id="story">
+  <div class="eyebrow">Launch Collection — First Release</div>
+  <h2>Six weaves, hand‑picked from Odisha's finest karkhanas, priced for their first introduction to the world.</h2>
+  <p>Every saree in this collection carries the unmistakable signature of ikat — threads dyed and bound before they ever touch a loom, so the pattern lives inside the fabric itself, not on top of it.</p>
+  <div class="rule"></div>
+</section>
+
+<!-- ================= COLLECTION ================= -->
+<section class="collection" id="collection"></section>
+
+<!-- ================= EDITORIAL ================= -->
+<section class="editorial">
+  <div class="editorial-media">
+    <img src="" data-src-key="img4" alt="Editorial cover feature of the Odisha ikat silk saree">
+  </div>
+  <div class="editorial-text">
+    <div class="eyebrow">Odisha's Heritage</div>
+    <h2>Reimagining the <em>Ikat</em>,<br>for summer's finest drape.</h2>
+    <p>Each border is woven thread‑by‑thread in the resist‑dye tradition — geometric temples, florals and motifs that have travelled through generations of Odisha's weaving families, now reframed for the modern wardrobe.</p>
+    <a href="#collection" class="ghost-btn">View the collection →</a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="contact">
+  <div class="logo">VASTRA<span>.</span></div>
+  <p class="tag">For private viewings, bespoke draping consultations, or questions about any weave in this collection, write to us directly.</p>
+  <div class="contact-row">
+    <a href="mailto:VASTRA@gmail.com">
+      <span class="label">Email</span>
+      <span>VASTRA@gmail.com</span>
+    </a>
+    <span>
+      <span class="label">Hours</span>
+      <span>Mon – Sat, 10am – 7pm IST</span>
+    </span>
+    <span>
+      <span class="label">Origin</span>
+      <span>Sambalpur, Odisha</span>
+    </span>
+  </div>
+  <div class="copyright">© 2026 Vastra — The House of Handloom. First Release Collection.</div>
+</footer>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-panel">
+    <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+    <div class="lb-viewer">
+      <div class="lb-stage" id="lbStage"></div>
+      <div class="lb-nav-arrow prev" id="lbPrev" aria-label="Previous image">‹</div>
+      <div class="lb-nav-arrow next" id="lbNext" aria-label="Next image">›</div>
+      <div class="lb-slide-label" id="lbLabel">Front View</div>
+      <div class="lb-thumbs" id="lbThumbs"></div>
+    </div>
+    <div class="lb-info">
+      <div class="origin" id="lbOrigin">Origin</div>
+      <h2 id="lbTitle">Saree Name</h2>
+      <p class="desc" id="lbDesc">Description</p>
+      <div class="lb-price-block">
+        <span class="lb-price-now" id="lbPriceNow">0</span>
+        <span class="lb-price-old" id="lbPriceOld">0</span>
+      </div>
+      <span class="lb-save" id="lbSave">Save 0%</span>
+      <div class="lb-meta" id="lbMeta"></div>
+      <div class="lb-actions">
+        <button class="btn-primary" id="lbEnquire">Enquire on Email</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   PRODUCT DATA
+   ---------------------------------------------------------
+   Replace each "front" path with your saree photo file.
+   The site auto-generates 4 gallery views per saree:
+     1. Front (full)        -> uses `front`
+     2. Front — upper half  -> CSS zoom-crop of `front`
+     3. Front — lower half  -> CSS zoom-crop of `front`
+     4. Back (full)         -> uses `back` if provided,
+                                otherwise a mirrored / tinted
+                                simulation of `front` is shown
+                                with a "Back view — illustrative"
+                                label until a real back photo
+                                is supplied.
+   ========================================================= */
+
+const PRODUCTS = [
+  {
+    id: "magenta-ikat",
+    title: "Magenta Tussar Ikat Saree",
+    origin: "Sambalpuri Ikat · Tussar Silk",
+    badge: "New Arrival",
+    front: "images/magenta-front.jpg",
+    back: "", // add images/magenta-back.jpg when available
+    price_original: 35000,
+    discount: 15,
+    desc: "A regal magenta tussar silk, woven with an intricate ikat field of temple motifs and finished with a contrast plum pallu bordered in woven gold. The deep purple polka-dot blouse piece is included.",
+    meta: {
+      "Fabric": "Pure Tussar Silk",
+      "Weave": "Sambalpuri Ikat",
+      "Blouse": "Polka-print, attached",
+      "Length": "5.5 m + blouse piece"
+    }
+  },
+  {
+    id: "odisha-ikat-silk",
+    title: "Odisha Heritage Ikat Silk",
+    origin: "Sambalpuri Ikat · Pure Silk",
+    badge: "Vogue Edit",
+    front: "images/odisha-front.jpg",
+    back: "",
+    price_original: 27000,
+    discount: 12,
+    desc: "The cover weave of our first release — a coffee-brown silk dense with calligraphic ikat script, framed in a saffron-and-crimson temple border. A statement drape that needs no further ornament.",
+    meta: {
+      "Fabric": "Pure Mulberry Silk",
+      "Weave": "Sambalpuri Ikat",
+      "Border": "Saffron & Crimson Temple",
+      "Length": "5.5 m + blouse piece"
+    }
+  },
+  {
+    id: "maroon-ikat",
+    title: "Maroon Heirloom Ikat Saree",
+    origin: "Sambalpuri Ikat · Pure Silk",
+    badge: "Bestseller",
+    front: "images/maroon-front.jpg",
+    back: "",
+    price_original: 27000,
+    discount: 12,
+    desc: "A deep maroon ground scattered with ivory ikat florals and rudraksha motifs, edged in a warm gold-and-red striped border. Timeless enough for a wedding, restrained enough for a Sunday lunch.",
+    meta: {
+      "Fabric": "Pure Mulberry Silk",
+      "Weave": "Sambalpuri Ikat",
+      "Border": "Gold & Red Stripe",
+      "Length": "5.5 m + blouse piece"
+    }
+  },
+  {
+    id: "pink-zari-silk",
+    title: "Pink Zari Silk Saree",
+    origin: "Banarasi-inspired · Zari Silk",
+    badge: "New Arrival",
+    front: "images/pinkzari-front.jpg",
+    back: "",
+    price_original: 32000,
+    discount: 11,
+    desc: "A luminous pink silk with an all-over self-jacquard motif, bordered in a wide woven gold zari panel depicting elephants and temple arches. The plum polka-dot blouse grounds the brightness beautifully.",
+    meta: {
+      "Fabric": "Zari Silk",
+      "Weave": "Jacquard Border",
+      "Blouse": "Polka-print, attached",
+      "Length": "5.5 m + blouse piece"
+    }
+  },
+  {
+    id: "rose-pink-ikat",
+    title: "Rose Pink Ikat Silk Saree",
+    origin: "Sambalpuri Ikat · Pure Silk",
+    badge: "Limited Edit",
+    front: "images/rosepink-front.jpg",
+    back: "",
+    price_original: 32000,
+    discount: 13,
+    desc: "Rose pink silk shot through with pale lotus and pavilion ikat work, set against a chocolate-brown pallu inscribed with bold script. Worn here with a statement gold necklace for full festive impact.",
+    meta: {
+      "Fabric": "Pure Mulberry Silk",
+      "Weave": "Sambalpuri Ikat",
+      "Pallu": "Inscribed Chocolate Brown",
+      "Length": "5.5 m + blouse piece"
+    }
+  },
+  {
+    id: "magenta-ikat-classic",
+    title: "Magenta Classic Ikat Drape",
+    origin: "Sambalpuri Ikat · Pure Silk",
+    badge: "New Arrival",
+    front: "images/magenta2-front.jpg",
+    back: "",
+    price_original: 35000,
+    discount: 15,
+    desc: "Our magenta ikat in its classic studio drape — a deep fuchsia ground patterned with traditional motifs, paired with a wide brown-and-gold ikat border carrying elephant and floral panels.",
+    meta: {
+      "Fabric": "Pure Mulberry Silk",
+      "Weave": "Sambalpuri Ikat",
+      "Border": "Brown & Gold Panel",
+      "Length": "5.5 m + blouse piece"
+    }
+  }
+];
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+function priceAfterDiscount(orig, pct){
+  return Math.round(orig * (1 - pct/100));
+}
+function fmt(n){
+  return n.toLocaleString("en-IN");
+}
+
+/* =========================================================
+   BUILD HERO RING
+   ========================================================= */
+const ring = document.getElementById("heroRing");
+PRODUCTS.forEach(p=>{
+  const item = document.createElement("div");
+  item.className = "ring-item";
+  item.innerHTML = `
+    <img src="${p.front}" alt="${p.title}" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#5c2a1f,#c81e5c)'; this.remove();">
+    <div class="tag"><small>${p.origin.split('·')[0].trim()}</small>${p.title}</div>
+  `;
+  item.addEventListener("click", ()=> openLightbox(p.id));
+  ring.appendChild(item);
+});
+
+/* =========================================================
+   BUILD COLLECTION GRID
+   ========================================================= */
+const grid = document.getElementById("collection");
+PRODUCTS.forEach(p=>{
+  const priceNow = priceAfterDiscount(p.price_original, p.discount);
+  const card = document.createElement("article");
+  card.className = "card";
+  card.tabIndex = 0;
+  card.setAttribute("role","button");
+  card.setAttribute("aria-label", `View ${p.title}`);
+  card.innerHTML = `
+    <div class="card-media">
+      <span class="badge ${p.badge === 'Bestseller' || p.badge === 'Limited Edit' ? 'gold' : ''}">${p.badge}</span>
+      <img class="img-front" src="${p.front}" alt="${p.title} — front view" loading="lazy"
+           onerror="this.closest('.card-media').style.background='linear-gradient(135deg,#5c2a1f 0%, #8b6f3f 50%, #c81e5c 100%)'; this.remove();">
+      <img class="img-back" src="${p.back || p.front}" alt="${p.title} — back view" loading="lazy"
+           style="${!p.back ? 'filter:hue-rotate(8deg) brightness(0.9) scaleX(-1); transform:scaleX(-1);' : ''}"
+           onerror="this.remove();">
+      <div class="view-hint"><span>View Saree</span></div>
+    </div>
+    <div class="card-info">
+      <div class="origin">${p.origin}</div>
+      <h3>${p.title}</h3>
+      <div class="price-row">
+        <span class="price-now">${fmt(priceNow)}</span>
+        <span class="price-old">${fmt(p.price_original)}</span>
+        <span class="save-pct">${p.discount}% off</span>
+      </div>
+    </div>
+  `;
+  card.addEventListener("click", ()=> openLightbox(p.id));
+  card.addEventListener("keydown", e=>{ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openLightbox(p.id);} });
+  grid.appendChild(card);
+});
+
+/* set editorial image (Odisha ikat — img4 reference) */
+document.querySelector('[data-src-key="img4"]').src = PRODUCTS[1].front;
+document.querySelector('[data-src-key="img4"]').onerror = function(){
+  this.parentElement.style.background = 'linear-gradient(160deg, #2a1b14, #5c2a1f 60%, #c8784a)';
+  this.remove();
+};
+
+/* =========================================================
+   LIGHTBOX LOGIC
+   ========================================================= */
+const lightbox   = document.getElementById("lightbox");
+const lbStage    = document.getElementById("lbStage");
+const lbThumbs   = document.getElementById("lbThumbs");
+const lbLabel    = document.getElementById("lbLabel");
+const lbTitle    = document.getElementById("lbTitle");
+const lbOrigin   = document.getElementById("lbOrigin");
+const lbDesc     = document.getElementById("lbDesc");
+const lbPriceNow = document.getElementById("lbPriceNow");
+const lbPriceOld = document.getElementById("lbPriceOld");
+const lbSave     = document.getElementById("lbSave");
+const lbMeta     = document.getElementById("lbMeta");
+const lbEnquire  = document.getElementById("lbEnquire");
+const lbClose    = document.getElementById("lbClose");
+const lbPrev     = document.getElementById("lbPrev");
+const lbNext     = document.getElementById("lbNext");
+
+let currentSlides = [];
+let currentIndex = 0;
+let currentProduct = null;
+let autoTimer = null;
+
+function buildSlides(p){
+  const hasBack = !!p.back;
+  return [
+    { src: p.front, cls: "", label: "Front View — Full Drape" },
+    { src: p.front, cls: "crop-top", label: "Front — Pallu &amp; Border Detail" },
+    { src: p.front, cls: "crop-bottom", label: "Front — Hemline Detail" },
+    {
+      src: hasBack ? p.back : p.front,
+      cls: hasBack ? "" : "crop-back-full",
+      label: hasBack ? "Back View — Full Drape" : "Back View — Simulated Preview"
+    }
+  ];
+}
+
+function openLightbox(id){
+  currentProduct = PRODUCTS.find(p=>p.id === id);
+  if(!currentProduct) return;
+  currentSlides = buildSlides(currentProduct);
+  currentIndex = 0;
+
+  lbOrigin.textContent = currentProduct.origin;
+  lbTitle.textContent  = currentProduct.title;
+  lbDesc.textContent   = currentProduct.desc;
+
+  const priceNow = priceAfterDiscount(currentProduct.price_original, currentProduct.discount);
+  lbPriceNow.textContent = fmt(priceNow);
+  lbPriceOld.textContent = fmt(currentProduct.price_original);
+  lbSave.textContent = `Launch price — ${currentProduct.discount}% off`;
+
+  lbMeta.innerHTML = "";
+  Object.entries(currentProduct.meta).forEach(([k,v])=>{
+    const d = document.createElement("div");
+    d.innerHTML = `<div class="k">${k}</div><div class="v">${v}</div>`;
+    lbMeta.appendChild(d);
+  });
+
+  lbEnquire.onclick = ()=>{
+    const subject = encodeURIComponent(`Enquiry — ${currentProduct.title}`);
+    const body = encodeURIComponent(`Hello Vastra,\n\nI'm interested in the ${currentProduct.title} (₹${fmt(priceNow)}, launch price). Could you share more details?\n\nThank you.`);
+    window.location.href = `mailto:VASTRA@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  renderStage();
+  lightbox.classList.add("open");
+  document.body.style.overflow = "hidden";
+  startAuto();
+}
+
+function renderStage(){
+  lbStage.innerHTML = "";
+  lbThumbs.innerHTML = "";
+  currentSlides.forEach((s, i)=>{
+    const slide = document.createElement("div");
+    slide.className = "lb-slide" + (i === currentIndex ? " active" : "");
+    slide.innerHTML = `<img class="crop ${s.cls}" src="${s.src}" alt="${currentProduct.title} ${s.label}"
+      onerror="this.parentElement.style.background='linear-gradient(135deg,#5c2a1f,#c81e5c)'; this.remove();">`;
+    lbStage.appendChild(slide);
+
+    const thumb = document.createElement("div");
+    thumb.className = "lb-thumb" + (i === currentIndex ? " active" : "");
+    thumb.innerHTML = `<img class="crop ${s.cls}" src="${s.src}" alt="" onerror="this.remove();">`;
+    thumb.addEventListener("click", ()=>{ goTo(i); restartAuto(); });
+    lbThumbs.appendChild(thumb);
+  });
+  lbLabel.innerHTML = currentSlides[currentIndex].label;
+}
+
+function goTo(i){
+  currentIndex = (i + currentSlides.length) % currentSlides.length;
+  const slides = lbStage.querySelectorAll(".lb-slide");
+  const thumbs = lbThumbs.querySelectorAll(".lb-thumb");
+  slides.forEach((s, idx)=> s.classList.toggle("active", idx === currentIndex));
+  thumbs.forEach((t, idx)=> t.classList.toggle("active", idx === currentIndex));
+  lbLabel.innerHTML = currentSlides[currentIndex].label;
+}
+
+function startAuto(){
+  autoTimer = setInterval(()=> goTo(currentIndex + 1), 4200);
+}
+function restartAuto(){
+  clearInterval(autoTimer);
+  startAuto();
+}
+
+lbPrev.addEventListener("click", ()=>{ goTo(currentIndex - 1); restartAuto(); });
+lbNext.addEventListener("click", ()=>{ goTo(currentIndex + 1); restartAuto(); });
+
+function closeLightbox(){
+  lightbox.classList.remove("open");
+  document.body.style.overflow = "";
+  clearInterval(autoTimer);
+}
+lbClose.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", e=>{ if(e.target === lightbox) closeLightbox(); });
+document.addEventListener("keydown", e=>{
+  if(!lightbox.classList.contains("open")) return;
+  if(e.key === "Escape") closeLightbox();
+  if(e.key === "ArrowRight"){ goTo(currentIndex+1); restartAuto(); }
+  if(e.key === "ArrowLeft"){ goTo(currentIndex-1); restartAuto(); }
+});
+
+/* =========================================================
+   HEADER SCROLL STATE
+   ========================================================= */
+const headerEl = document.getElementById("siteHeader");
+window.addEventListener("scroll", ()=>{
+  headerEl.classList.toggle("scrolled", window.scrollY > 40);
+});
+</script>
+</body>
+</html>
