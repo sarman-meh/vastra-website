@@ -244,7 +244,7 @@ nav a:hover::after { width: 100%; }
 .collection img,
 .card-img img,
 div[class*+"card] img{ position: relative; aspect-ratio: 3/4; overflow: hidden; background: #0e0a07; }
-  width: 100% !important; height: auto !important; max-height: 550 !important; object-fit: contain !important; display: block;
+  width: 100% !important; height: auto !important; max-height: 350px !important; object-fit: contain !important; display: block;
   transition: transform 1.4s cubic-bezier(.22,.9,.3,1);
   transform: scale(1.02);
 }
