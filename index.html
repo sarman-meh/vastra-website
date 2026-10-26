@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VASTRA — The House of Handloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="hdr">
+    <a href="#" class="logo">VASTRA<span>.</span></a>
+    <nav>
+      <div class="nav-links" id="navLinks">
+        <a href="#collection">Collection</a>
+        <a href="#heritage">Heritage</a>
+        <a href="#contact">Contact</a>
+        <a href="mailto:VASTRA@gmail.com" class="nav-btn">Enquire</a>
+      </div>
+      <div class="hamburger" id="ham">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-img">
+      <img src="images/magenta2-front.jpeg" alt="hero saree">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="ring-wrap">
+      <div class="ring" id="heroRing"></div>
+    </div>
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Handloom &middot; Heirloom &middot; Odisha</div>
+      <h1 class="hero-h1">The Art of the<br><em>Drape</em></h1>
+      <p class="hero-sub">Six signature ikat &amp; silk weaves, first release pricing.</p>
+      <a href="#collection" class="hero-cta">Explore Collection</a>
+    </div>
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro" id="heritage">
+    <span class="eyebrow">Launch Collection — First Release</span>
+    <h2>Six weaves, hand-picked from Odisha's finest karkhanas, at introductory pricing.</h2>
+    <p>Every saree carries the unmistakable signature of ikat — threads dyed and bound before they ever touch a loom, so the pattern lives inside the fabric itself.</p>
+    <div class="rule"></div>
+  </section>
+
+  <!-- COLLECTION GRID -->
+<section class="collection" id="collection"></section>
+</section>
+
+  <!-- EDITORIAL -->
+  <section class="editorial">
+    <div class="ed-media">
+      <img src="images/odisha-front.jpeg" alt="Odisha Ikat editorial">
+    </div>
+    <div class="ed-text">
+      <span class="eyebrow">Odisha's Heritage</span>
+      <h2>Reimagining the <em>Ikat</em> for summer's finest drape.</h2>
+      <p>Each border is woven thread-by-thread in the resist-dye tradition — geometric temples, florals and motifs that have travelled through generations of Odisha's weaving families.</p>
+      <a href="#collection" class="ghost-btn">View the Collection →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <a href="#" class="logo">VASTRA<span>.</span></a>
+    <p class="tagline">For private viewings, bespoke draping consultations, or questions about any weave, write to us directly.</p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <span class="k">Email</span>
+        <a href="mailto:VASTRA@gmail.com">VASTRA@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="k">Hours</span>
+        <span>Mon – Sat, 10am – 7pm IST</span>
+      </div>
+      <div class="contact-item">
+        <span class="k">Origin</span>
+        <span>Sambalpur, Odisha</span>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Vastra — The House of Handloom.</div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lb" id="lb">
+    <div class="lb-panel">
+      <button class="lb-close" id="lbClose">&times;</button>
+      <div class="lb-viewer">
+        <div class="lb-stage" id="lbStage"></div>
+        <div class="lb-arrow prev" id="lbPrev">&#8249;</div>
+        <div class="lb-arrow next" id="lbNext">&#8250;</div>
+        <div class="slide-label" id="lbLabel">Front View</div>
+        <div class="lb-thumbs" id="lbThumbs"></div>
+      </div>
+      <div class="lb-info">
+        <div class="origin" id="lbOrigin"></div>
+        <h2 id="lbTitle"></h2>
+        <p class="desc" id="lbDesc"></p>
+        <div class="lb-price-row">
+          <span class="lb-price-now" id="lbNow"></span>
+          <span class="lb-price-old" id="lbOld"></span>
+        </div>
+        <span class="lb-save" id="lbSave"></span>
+        <div class="lb-meta" id="lbMeta"></div>
+        <div class="lb-btns">
+          <button class="btn-buy" id="lbBuy">Buy via UPI</button>
+          <button class="btn-ghost" id="lbMail">Email Enquiry</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
